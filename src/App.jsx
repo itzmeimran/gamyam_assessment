@@ -6,6 +6,7 @@ import Pagination from "./components/Pagination";
 import ProductTable from "./components/ProductTable";
 import ProductGrid from "./components/ProductGrid";
 import Toolbar from "./components/Toolbar";
+import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 const App = () => {
   const [products, setProducts] = useState(productsData);
   const [view, setView] = useState("list");
@@ -48,6 +49,7 @@ const App = () => {
           onSearch={setSearch}
           onAdd={() => setEditing({})}
           onViewChange={setView}
+          view={view}
         />
 
         {view === "list" ? (

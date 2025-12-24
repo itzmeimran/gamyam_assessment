@@ -1,5 +1,7 @@
+import Button from "@mui/material/Button";
 import { useState } from "react";
-
+import SaveIcon from "@mui/icons-material/Save";
+import CloseIcon from "@mui/icons-material/Close";
 const ProductForm = ({ product, onSave, onCancel }) => {
   const [form, setForm] = useState({
     id: product.id || null,
@@ -79,12 +81,34 @@ const ProductForm = ({ product, onSave, onCancel }) => {
         />
 
         <div className="flex gap-2 mt-3">
-          <button className="bg-blue-600 text-white px-4" onClick={submit}>
+          <Button
+            sx={{
+              textTransform: "none",
+              border: "1px solid black",
+              borderRadius: "0px",
+              color: "gray",
+              "&:hover": { color: "black" },
+            }}
+            className="bg-blue-600 text-white px-4"
+            onClick={submit}
+            startIcon={<SaveIcon />}
+          >
             Save
-          </button>
-          <button className="border px-4" onClick={onCancel}>
+          </Button>
+          <Button
+            sx={{
+              textTransform: "none",
+              border: "1px solid black",
+              borderRadius: "0px",
+              color: "gray",
+              "&:hover": { color: "black" },
+            }}
+            className="border px-4"
+            onClick={onCancel}
+            startIcon={<CloseIcon />}
+          >
             Cancel
-          </button>
+          </Button>
         </div>
       </div>
     </div>
