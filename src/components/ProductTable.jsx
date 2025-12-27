@@ -1,7 +1,12 @@
 import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
-const ProductTable = ({ products = [], onEdit = () => {} }) => {
+import HighlightText from "./HighlightText";
+const ProductTable = ({
+  products = [],
+  onEdit = () => {},
+  searchText = "",
+}) => {
   return (
     <table className="w-full border">
       <thead>
@@ -19,9 +24,14 @@ const ProductTable = ({ products = [], onEdit = () => {} }) => {
             key={p.id}
             className="border-t hover:bg-gray-100 cursor-pointer transition-all"
           >
-            <td>{p.name}</td>
+            <td>
+              <HighlightText str={p.name} subStr={searchText} />
+            </td>
             <td>₹{p.price}</td>
-            <td>{p.category}</td>
+            <td>
+              {" "}
+              <HighlightText str={p.category} subStr={searchText} />
+            </td>
             <td>{p.stock ?? "-"}</td>
             <td>
               <Button

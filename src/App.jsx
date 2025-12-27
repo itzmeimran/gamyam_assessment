@@ -6,7 +6,7 @@ import Pagination from "./components/Pagination";
 import ProductTable from "./components/ProductTable";
 import ProductGrid from "./components/ProductGrid";
 import Toolbar from "./components/Toolbar";
-import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
+import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 const App = () => {
   const [products, setProducts] = useState(productsData);
   const [view, setView] = useState("list");
@@ -18,8 +18,10 @@ const App = () => {
   const debouncedSearch = useDebounce(search, 500);
 
   const filteredProducts = useMemo(() => {
-    return products.filter((p) =>
-      p.name.toLowerCase().includes(debouncedSearch.toLowerCase())
+    return products.filter(
+      (p) =>
+        p.name.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
+        p.category.toLowerCase().includes(debouncedSearch.toLowerCase())
     );
   }, [products, debouncedSearch]);
 
@@ -31,13 +33,16 @@ const App = () => {
 
   const handleSave = (product) => {
     if (product.id) {
+      //For edit
       setProducts((prev) =>
         prev.map((p) => (p.id === product.id ? product : p))
       );
     } else {
-      setProducts((prev) => [...prev, { ...product, id: Date.now() }]);
+      // For new
+      setProducts((prev) => [{ ...product, id: Date.now() }, ...prev]);
     }
     setEditing(null);
+    // setPage(totalPages + 1);
   };
   return (
     <div>
@@ -53,7 +58,11 @@ const App = () => {
         />
 
         {view === "list" ? (
-          <ProductTable products={paginatedProducts} onEdit={setEditing} />
+          <ProductTable
+            products={paginatedProducts}
+            onEdit={setEditing}
+            searchText={search}
+          />
         ) : (
           <ProductGrid products={paginatedProducts} onEdit={setEditing} />
         )}
